@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script>
+        // Source du dropdown & du dropleft : https://codepen.io/GuiFSouzah/pen/NWeJYGJ (Je les ai personnalisé quand même!)
+        
+        document.addEventListener("click", e => {
+            const dropdownBtn = e.target.closest(".dropdown-btn");
+            
+            if (dropdownBtn) {
+                const dropdown = dropdownBtn.closest(".dropdown");
+                const isAlreadyActive = dropdown.classList.contains("active");
+                
+                hideDropElements();
+                if (isAlreadyActive) {
+                    dropdown.classList.remove("active");
+                    return;
+                }
+                
+                dropdown.classList.add("active");
+            } else { hideDropElements() }
+            
+            function hideDropElements() {
+                const dropElements = document.querySelectorAll(".dropdown, .dropright");
+                for (let element of dropElements) {
+                    element.classList.remove("active");
+                }
+            }
+        });
+        
+        document.addEventListener("mouseover", e => {
+            const dropright = e.target.closest(".dropright");
+            const button = e.target.closest(".dropdown-content button");
+            if(button) { hideDroprightElements() }
+            if (dropright) { dropright.classList.add("active") }
+            
+            function hideDroprightElements() {
+                const dropElements = document.querySelectorAll(".dropright");
+                for (let element of dropElements) {
+                    element.classList.remove("active");
+                }
+            }
+        });
+
+        function Stat1() {
+            window.location.href = "index.html";
+        }
+
+        function Stat2() {
+            window.location.href = "stat2.html";
+        }
+    </script>
+</head>
+<body>
+    
+    <div class="menu_gauche">
+        <h1>Menu de navigation</h1>
+        <select name="menu" id="menu">
+            <option value="index.html" onclick="Stat1()">Taux de réussite au lycée</option>
+            <option value="stat2.html" selected onclick="Stat2()">Taux d'inscription et de présence à l'université</option>
+        </select>
+
+        <h2>Réinitialiser les filtres</h2>
+        <button id="reset" class="reset"><a href="stat2.html" class="reset">Réinitialiser</a></button>
+        <h2>Choisir l'année</h2>
+        <!--<select name="années" id="Bouton-années" onchange="change(this.id)"></select> Old version-->
+        
+        <div class="dropdown" id="Bouton-années2">
+            <button class="dropdown-btn">Année</button>
+            <div class="dropdown-content" id="content">
+                <!--Le constructeur agit ici-->
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="centre">
+        <section class="section">
+            <h2>Affichage de statistique</h2>
+            <article id="graph3" style="width: 99%; display: inline-block;"></article>
+            <article style="height: 30px;"></article>
+            <article id="graph4" style="width: 99%; display: inline-block; height: 370px;"></article>
+            
+            <h2>Vidéo présentation de statistique</h2>
+            <article>
+                <iframe width="914" height="514" src="https://www.youtube.com/embed/NOANnbdAMIA" title="Comparatif Taux d&#39;entrée au lycée, Océanie 2020" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </article>
+        </section>
+    </div>
+    
+    
+    <script src="dist/apexcharts.min.js"></script>
+    <script src="NB_reussite_lycee.js"></script>
+    <script src="NB_reussite_lycee_genre.js"></script>
+    <script src="NB_frequentation_univ.js"></script>
+    <script src="NB_frequentation_univ_mixte.js"></script>
+    <script src="reduces.js"></script>
+    <script src="filtres.js"></script>
+    <script src="treemap2.js"></script>    
+</body>
+</html>
